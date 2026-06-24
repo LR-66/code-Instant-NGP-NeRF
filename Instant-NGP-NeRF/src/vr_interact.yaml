@@ -1,0 +1,23 @@
+inherit: config/default.yaml
+
+# Override for VR interaction
+vr:
+  display_refresh_rate: 90
+  resolution_per_eye: [2160, 2160]
+  async_buffering: true
+  motion_prediction: true
+  tile_size: 16
+  sort_block_size: 64
+  culling_threshold: 0.01
+  max_active_gaussians: 100000
+
+interaction:
+  component_hierarchy: "./data/component_hierarchy.json"
+  rigid_constraint_weight: 0.01
+  distance_change_threshold: 0.05
+
+input:
+  checkpoint: "./experiments/checkpoints/gaussian_model.pth"
+
+output:
+  result_dir: "./experiments/results/vr_interaction"

@@ -1,0 +1,70 @@
+# Default configuration for all stages
+
+# Data
+data:
+  root_dir: "./data"
+  scene_name: "scene_s3"
+  image_downscale: 1
+  train_views: 0.8
+  val_views: 0.2
+  test_views: 0.0
+
+# Model
+model:
+  hash_encoder:
+    num_levels: 16
+    min_resolution: 16
+    max_resolution: 2048
+    feature_dim: 2
+    hash_table_size: 2**19
+  mlp:
+    hidden_dim: 64
+    num_layers: 2
+    activation: "relu"
+  gaussian:
+    max_primitives: 200000
+    sh_degree: 3
+
+# Training
+training:
+  batch_size: 4096
+  num_epochs: 30000
+  lr_base: 1e-2
+  lr_schedule: "cosine"
+  beta: 0.9
+  gradient_accumulation: 1
+  mixed_precision: true
+
+# Rendering
+rendering:
+  n_samples: 128
+  n_importance: 0
+  near: 0.1
+  far: 10.0
+  chunk_size: 32768
+  render_batch_size: 4096
+
+# VR
+vr:
+  display_refresh_rate: 90
+  resolution_per_eye: [2160, 2160]
+  async_buffering: true
+  motion_prediction: true
+  tile_size: 16
+  sort_block_size: 64
+
+# Loss
+loss:
+  l1_weight: 1.0
+  depth_weight: 0.5
+  perceptual_weight: 0.2
+  tv_weight: 1e-4
+  rigid_constraint_weight: 0.01
+
+# Logging
+logging:
+  log_dir: "./experiments/logs"
+  checkpoint_dir: "./experiments/checkpoints"
+  result_dir: "./experiments/results"
+  log_interval: 100
+  save_interval: 1000

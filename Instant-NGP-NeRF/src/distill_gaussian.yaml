@@ -1,0 +1,36 @@
+inherit: config/default.yaml
+
+# Override for Gaussian distillation
+distillation:
+  density_threshold: 1.5  # multiple of mean density
+  cluster_radius: 0.002   # relative to bounding box diagonal
+  max_gaussians: 200000
+  optimize_steps: 10000
+
+model:
+  gaussian:
+    max_primitives: 200000
+    sh_degree: 3
+    learn_lr_pos: 1.6e-4
+    learn_lr_cov: 5.0e-3
+    learn_lr_sh: 2.5e-3
+
+training:
+  batch_size: 4096
+  num_epochs: 10000
+  lr_base: 1.0
+  lr_schedule: "exponential"
+  grad_clip: 0.0
+
+loss:
+  l1_weight: 1.0
+  depth_weight: 0.5
+  perceptual_weight: 0.2
+  tv_weight: 1e-4
+
+input:
+  checkpoint: "./experiments/checkpoints/nerf_model.pth"
+
+output:
+  checkpoint: "./experiments/checkpoints/gaussian_model.pth"
+  primitives: "./experiments/results/gaussian_primitives.ply"
